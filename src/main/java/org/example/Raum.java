@@ -2,9 +2,9 @@ package org.example;
 
 import java.util.List;
 
-public class Raum{
+public class Raum {
     private int raumId;
-    private int zieltemperatur
+    private int zieltemperatur;
     private List<Fenster> fensterliste;
     private List<Heizung> heizungliste;
     private Thermometer thermometer;
@@ -13,30 +13,44 @@ public class Raum{
         this.raumId = raumId;
         this.zieltemperatur = zieltemperatur;
     }
-public boolean hatOffeneFenster () {
-        for (Fenster f:fensterliste){
-            if (f.isOffen()){
+
+    public boolean hatOffeneFenster() {
+        for (Fenster f : fensterliste) {
+            if (f.isOffen()) {
                 return true;
             }
+        }
+        return false;
     }
-     return false;
-    }
-public void regeleTemperatur () {
-        if (hatOffeneFenster ()) {
-            for (Heizung h: heizungliste){
-                h.schalteaus ();
-            }else if (thermometer.getTemperatur()<zieltemperatur){
 
+    public void regeleTemperatur() {
+        if (hatOffeneFenster())
+        {
+            for (Heizung h : heizungliste)
+            {
+                h.schalteAus();
             }
-            for (Heizung h: heizungliste){
-                h.schalteEin();
+        }
+        else
+        {
+            if (thermometer.getTemperatur() < zieltemperatur)
+            {
+                for (Heizung h : heizungliste) {
+                    h.schalteEin();
+                }
+            }
+            else if (thermometer.getTemperatur() > zieltemperatur)
+            {
+                h.schalteAus();
             }
         }
     }
-public List<Fenster> getFensterliste () {
+
+    public List<Fenster> getFensterliste() {
         return fensterliste;
-}
-    public List<Heizung> getHeizungliste () {
+    }
+
+    public List<Heizung> getHeizungliste() {
         return heizungliste;
     }
 
@@ -50,6 +64,7 @@ public List<Fenster> getFensterliste () {
 
 
     public String toString() {
+        return "Raum" + raumId + ":" + zieltemperatur + "°C, Fenster" + fensterliste.size() + "Heizung: " + heizungliste.size();
 
     }
 }
